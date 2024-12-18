@@ -125,6 +125,11 @@ body {
 
 }
 
+.whatsapp-button,
+.phone-button {
+    width: 105px;
+}
+
 .phone-button:hover,
 .phone-button:focus {
     background-color: #05d0d0;
