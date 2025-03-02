@@ -56,10 +56,17 @@ body {
     justify-content: center;
     margin-top: -13px;
 
-    img,
     .photo {
         height: 40vh;
     }
+}
+
+img {
+    height: 40vh;
+}
+
+.photo {
+    height: 40vh;
 }
 
 .text {
