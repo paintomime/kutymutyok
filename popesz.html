@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Polly</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --radius:12px;
+      --shadow:0 6px 18px rgba(18,38,63,0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#0f172a;
+    }
+    html,body{height:100%;margin:0;background:var(--bg)}
+    .wrap{max-width:1100px;margin:36px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+    h1{font-size:1.6rem;margin:0}
+    p.lead{margin:0;color:var(--muted)}
+
+    /* Videos grid */
+    .videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:28px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .video-wrap{position:relative;padding-top:56.25%;background:#000;cursor:pointer;overflow:hidden}
+    .video-wrap img.thumb{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    .video-wrap .play-btn{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:68px;height:48px;border:none;border-radius:12px;
+      background:rgba(0,0,0,0.6);
+      cursor:pointer;
+    }
+    .video-wrap .play-btn::before{
+      content:"";display:block;margin:auto;width:0;height:0;
+      border-left:22px solid #fff;
+      border-top:14px solid transparent;
+      border-bottom:14px solid transparent;
+    }
+    .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .card-body{padding:14px}
+    .v-title{font-weight:600;margin:0 0 6px 0}
+    .v-desc{margin:0;color:var(--muted);font-size:0.95rem}
+    .meta{display:flex;gap:10px;align-items:center;margin-top:10px}
+    .tag{font-size:0.82rem;padding:6px 8px;border-radius:999px;background:#f1f5f9;color:#111827}
+
+    /* Routine */
+    .routine{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
+    @media (max-width:920px){.routine{grid-template-columns:1fr}}
+    .timeline{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .timeline h2{margin-top:0}
+    .item{display:flex;gap:12px;padding:12px 6px;border-bottom:1px dashed #eef2f7}
+    .item:last-child{border-bottom:0}
+    .time{width:120px;flex-shrink:0;font-weight:600;color:var(--accent)}
+    .activity{flex:1}
+    .activity small{display:block;color:var(--muted);margin-top:6px}
+
+    /* Dog card */
+    .dog-card{background:linear-gradient(135deg,#fff 0%,#fbfdff 100%);padding:18px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;gap:14px;align-items:center;margin-top:24px}
+    .dog-photo{width:96px;height:96px;border-radius:12px;background:linear-gradient(180deg,#eee,#ddd);display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#9ca3af}
+    .dog-info h3{margin:0 0 6px 0}
+    .dog-info p{margin:0;color:var(--muted)}
+
+    /* small helper */
+    .muted{color:var(--muted)}
+    footer{margin-top:22px;color:var(--muted);font-size:0.9rem}
+
+    /* Accessible focus */
+    a,button{outline-offset:3px}
+    iframe:focus{outline:3px solid rgba(37,99,235,0.12)}
+
+    /* Responsive tweak for very small screens */
+    @media (max-width:360px){
+      .time{font-size:0.85rem;width:100px}
+    }
+    @media (max-width:320px){
+      .item{flex-direction:column;align-items:flex-start}
+      .time{width:auto;margin-bottom:4px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Polly</h1>
+      </div>
+    </header>
+
+    <!-- VIDEOS GRID -->
+    <section class="videos" aria-label="YouTube videos">
+      <!-- VIDEO CARD 1 -->
+      <article class="card">
+        <div class="video-wrap" data-id="2QOli5cF3ek">
+          <img class="thumb" src="https://img.youtube.com/vi/2QOli5cF3ek/hqdefault.jpg" alt="Video 1 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Reggelire variációk</h3>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 2 -->
+      <article class="card">
+        <div class="video-wrap" data-id="WGc7bZHMBWE">
+          <img class="thumb" src="https://img.youtube.com/vi/WGc7bZHMBWE/hqdefault.jpg" alt="Video 2 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Reggeli</h3>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 3 -->
+      <article class="card">
+        <div class="video-wrap" data-id="e7zacgVtf1I">
+          <img class="thumb" src="https://img.youtube.com/vi/e7zacgVtf1I/hqdefault.jpg" alt="Video 3 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Reggeli</h3>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 4 -->
+      <article class="card">
+        <div class="video-wrap" data-id="UZo2LIncLsA">
+          <img class="thumb" src="https://img.youtube.com/vi/UZo2LIncLsA/hqdefault.jpg" alt="Video 4 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Sétálós nap előtti reggeli</h3>
+          <p class="v-desc">Ha sétálni megy, csak pár falatot kapjon előtte</p>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 5 -->
+      <article class="card">
+        <div class="video-wrap" data-id="UZo2LIncLsA">
+          <img class="thumb" src="https://img.youtube.com/vi/UZo2LIncLsA/hqdefault.jpg" alt="Video 5 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Kefíres víz</h3>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 6 -->
+      <article class="card">
+        <div class="video-wrap" data-id="VIDEO_ID_6">
+          <img class="thumb" src="https://img.youtube.com/vi/VIDEO_ID_6/hqdefault.jpg" alt="Video 6 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Meeting Other Dogs</h3>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 7 -->
+      <article class="card">
+        <div class="video-wrap" data-id="VIDEO_ID_7">
+          <img class="thumb" src="https://img.youtube.com/vi/VIDEO_ID_7/hqdefault.jpg" alt="Video 7 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Car Ride Adventure</h3>
+        </div>
+      </article>
+
+      <!-- VIDEO CARD 8 -->
+      <article class="card">
+        <div class="video-wrap" data-id="VIDEO_ID_8">
+          <img class="thumb" src="https://img.youtube.com/vi/VIDEO_ID_8/hqdefault.jpg" alt="Video 8 thumbnail">
+          <button class="play-btn" aria-label="Play video"></button>
+        </div>
+        <div class="card-body">
+          <h3 class="v-title">Birthday Celebration</h3>
+        </div>
+      </article>
+    </section>
+
+    <!-- ROUTINES AND DOG CARD -->
+    <section class="routine">
+      <!-- Daily Routine -->
+      <div class="timeline" aria-labelledby="daily-routine-heading">
+        <h2 id="daily-routine-heading">Polly napi rutinja</h2>
+        <p class="muted">Egy kutyának átlagban napi 16-18 órát kell aludnia!</p>
+        <p class="muted">Mindig legyen neki friss víz!</p>
+        <p class="muted">Ha szeretnétek vinni sétálni, akkor azt világosban csináljátok, ne este!</p>
+
+        <div class="item">
+          <div class="time">07:40 - 08:15</div>
+          <div class="activity">
+            <strong>Ébredés, ő fog majd kelteni titeket</strong>
+            <small>Nem kell sietni vele kifelé, csak jelzi, hogy ő már amúgy készen áll a napra. De vissza lehet küldeni még feküdni.</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">08:30 - 9:40</div>
+          <div class="activity"><strong>Pisi + kaki</strong></div>
+        </div>
+
+        <div class="item">
+          <div class="time">09:45–10:20</div>
+          <div class="activity">
+            <strong>Reggeli</strong>
+            <small>Változó időpontokban adjátok, NE mindig ugyanakkor! Kaja után ne futkosson!</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">14:30-15:00</div>
+          <div class="activity">
+            <strong>Pisi + kaki</strong>
+            <small>Ha szeretnétek vinni sétálni, akkor azt világosban csináljátok, ne este!</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">20:00 - 22:00 között bármikor</div>
+          <div class="activity"><strong>Legutolsó pisi + kaki</strong></div>
+        </div>
+
+        <div class="item">
+          <div class="time">22:00-23:00</div>
+          <div class="activity">
+            <strong>Vacsora</strong>
+            <small>Változó időpontokban adjátok, NE mindig ugyanakkor!</small>
+            <small>Kaja után ne futkosson, játék sincs!</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">23:00</div>
+          <div class="activity">
+            <strong>Alvás, pihenés</strong>
+            <small>Estére minden játékot tegyetek el!</small>
+            <small>"Alvás van, fekvés, pihenés! Jó éjszakát, szép álmokat!" - ezt szokta érteni</small>
+          </div>
+        </div>
+      </div>
+
+<!-- Dog Cues Card -->
+<aside class="dog-card" aria-label="Dog cues" style="display:block;">
+  <div class="dog-info" style="width:100%;">
+    <h3>Vezényszavak</h3>
+    <ul style="margin:6px 0 0 0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
+      <li><strong>Tiéd!</strong> – kajánál</li>
+      <li><strong>Mehetsz!/Tovább!/Jöhetsz!</strong> – Ajtónál, lépcső előtt, sétánál</li>
+      <li><strong>Pacsi!</strong></li>
+      <li><strong>Fordul!</strong></li>
+      <li><strong>Keresd!</strong> – Eldugott vagy elszórt kaját, jutit</li>
+      <li><strong>Hozd ide!</strong> – pl. a játékát</li>
+      <li><strong>Hagyd!</strong> – elengedni valamit, nem foglalkozni a madárral/macskával/kakival</li>
+      <li><strong>Figyelj!</strong> – a szemedbe néz</li>
+      <li><strong>Ide!</strong> – ha magadhoz akarod hívni, de ennél MINDIG kapjon jutit, ha odajön</li>
+    </ul>
+    <p style="margin-top:8px;font-size:0.9rem;color:#6b7280;">
+      Ha valamit jól csinál, akkor mondd neki, hogy <b>"AZAZ"</b> és utána MINDIG adj valami jutit.
+    </p>
+  </div>
+</aside>
+    </section>
+
+    <!-- Walking Routine -->
+    <section class="routine" style="margin-top:36px;">
+      <div class="timeline" aria-labelledby="walking-routine-heading">
+        <h2 id="walking-routine-heading">Sétáltatós napi rutinja</h2>
+
+        <div class="item">
+          <div class="time">07:40 - 08:15</div>
+          <div class="activity">
+            <strong>Ébredés, ő fog majd kelteni titeket</strong>
+            <small>Nem kell sietni vele kifelé, csak jelzi, hogy ő már amúgy készen áll a napra. De vissza lehet küldeni még feküdni.</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">08:00 körül</div>
+          <div class="activity">
+            <strong>Reggeli</strong>
+            <small>Korán adj neki egy kis marék tápot enni.</small>
+            <small>És egy adag kefíres vizet, hogy ne szomjazzon napközben.</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">08:40 körül</div>
+          <div class="activity">
+            <strong>Pisi + kaki</strong>
+            <small>Mindenképp legyen meg, mielőtt elviszik.</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">9 körül jönnek érte, de majd szólnak előtte</div>
+          <div class="activity">
+            <strong>Átadás</strong>
+            <small>Add nekik oda a hámot és a méhecske elleni dobozt.</small>
+            <small>Nyakörv is legyen Pollyn a feltöltött nyomkövetővel.</small>
+            <small>A rövid, fekete pórázzal add oda őt.</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">Kb. 15:30-16:00</div>
+          <div class="activity">
+            <strong>Visszahozzák</strong>
+            <small>Kb. 15:30-16:00 körül szokták visszahozni, de kérdezz rá majd reggel.</small>
+            <small>A pénzt add oda (9000 Ft) és kérd vissza a méhecskés dobozt.</small>
+            <small>Otthon vedd le a hámot, nyakörvet, pórázt. Legyen vize!</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">16:00 - </div>
+          <div class="activity">
+            <strong>PIHENÉS</strong>
+            <small>SEMMI JÀTÉK!!! csak pihenés!!! Következő nap sem kell vele extrán menni sehova!!</small>
+            <small>Ezután csak az esti pisi + kaki körre kell kivinni.</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">20:00 - 22:00 között bármikor</div>
+          <div class="activity"><strong>Legutolsó pisi + kaki</strong></div>
+        </div>
+
+        <div class="item">
+          <div class="time">22:00-23:00</div>
+          <div class="activity">
+            <strong>Vacsora</strong>
+            <small>Változó időpontokban adjátok, NE mindig ugyanakkor!</small>
+            <small>Kaja után ne futkosson, játék sincs!</small>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">23:00</div>
+          <div class="activity">
+            <strong>Alvás, pihenés</strong>
+            <small>Estére minden játékot tegyetek el!</small>
+            <small>"Alvás van, fekvés, pihenés! Jó éjszakát, szép álmokat!" - ezt szokta érteni</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('.video-wrap').forEach(wrap => {
+      wrap.addEventListener('click', () => {
+        const id = wrap.getAttribute('data-id');
+        wrap.innerHTML = `
+          <iframe src="https://www.youtube.com/embed/${id}?autoplay=1" 
+                  title="YouTube video player"
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+          </iframe>`;
+      });
+    });
+  </script>
+</body>
+</html>
